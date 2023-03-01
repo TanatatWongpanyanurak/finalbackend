@@ -9,7 +9,7 @@ const schema = new Schema({
     role: {type: String,default:'member'}
     
 
-  } ,{collection:'users'});
+  } ,{collection:'user'});
 
     schema.methods.encryptPassword = async function(password){
             const salt =await bcrypt.genSalt(5)
