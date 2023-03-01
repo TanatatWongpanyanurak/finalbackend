@@ -100,4 +100,48 @@ exports.profile = (req, res, next) => {
      email:email,
   });
 };
+exports.destroy = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const user = await User.deleteOne({
+      _id: id,
+    });
+
+    if (user.deleteCount === 0) {
+      const error = new Error("ไม่สามารถลบข้อมูลได้");
+      error.statusCode = 400;
+      throw error;
+    } else {
+      res.status(200).json({
+        message: "ลบข้อมูลเรียบร้อยแล้ว",
+      });
+    }
+  } catch (error) {
+     next(error)
+  }
+};
+exports.update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { role } = req.body;
+    const user = await User.updateOne(
+      { _id: id },
+      {
+        role:role
+      }
+    );
+    console.log(user)
+    if(user.nModified === 0){
+    const error = new Error("ไม่สามารถอัปเดตข้อมูลได้")
+       error.statusCode = 400
+       throw error;
+    }
+    else{
+    res.status(200).json({
+      message: "อัปเดตข้อมูลเรียบร้อยแล้ว",
+    })};
+  } catch (error) {
+    next(error)
+  }
+};
 

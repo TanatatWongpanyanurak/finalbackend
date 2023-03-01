@@ -46,4 +46,7 @@ router.post(
   );
   router.get("/me",[passport.isLogin],userController.profile)
 
+  router.delete('/:id',userController.destroy)
+  router.put('/:id',userController.update)
+
 module.exports = router;
