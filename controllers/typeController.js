@@ -79,6 +79,8 @@ exports.insert = async (req, res, next) => {
 } catch(error){
   next(error);
 }
+
+// มีปัญหาตัวนี้
  exports.destoy = async (req,res,next) =>{
    try{
      const{ id } = req.params;
