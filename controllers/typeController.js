@@ -79,7 +79,7 @@ exports.insert = async (req, res, next) => {
 } catch(error){
   next(error);
 }
-
+};
 // มีปัญหาตัวนี้
  exports.destoy = async (req,res,next) =>{
    try{
@@ -88,17 +88,41 @@ exports.insert = async (req, res, next) => {
         _id : id 
      });
       console.log(pro)
-    //  if(pro.deletedCount === 0){
-    //   const error = new Error("ไม่สามารถลบข้อมูลได้")
-    //   error.statusCode = 400;
-    //   throw error;
-    //  } 
-    //   res.status(200).json({
-    //      message : "ลบข้อมูลได้แล้ว"
-    //   });
+     if(pro.deletedCount === 0){
+       const error = new Error("ไม่สามารถลบข้อมูลได้")
+      error.statusCode = 400;
+      throw error;
+     } 
+       res.status(200).json({
+          message : "ลบข้อมูลได้แล้ว"
+       });
      
    }catch (error){
       next(error)
    }
- }
+ };
+ exports.update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name ,price } = req.body;
+    const product = await Product.updateOne(
+      { _id: id },
+      {
+        name:name,
+        price:price
+      }
+    );
+    console.log(product)
+    if(product.nModified === 0){
+    const error = new Error("ไม่สามารถอัปเดตข้อมูลได้")
+       error.statusCode = 400
+       throw error;
+    }
+    else{
+    res.status(200).json({
+      message: "อัปเดตข้อมูลเรียบร้อยแล้ว",
+    })};
+  } catch (error) {
+    next(error)
+  }
 };

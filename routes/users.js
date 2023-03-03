@@ -7,7 +7,7 @@ const passport = require('../middleware/passportJWT');
 router.get("/", userController.index);
 router.get("/bio", userController.bio);
 router.post(
-  "/",
+  "/register",
   [
     body("name").not().isEmpty().withMessage("กรุณาป้อนชื่อสกุลด้วย"),
     body("email")
