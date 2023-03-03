@@ -11,6 +11,6 @@ router.get('/product',typeController.product );
 router.get('/:id', typeController.show);
 router.post('/addproduct',[body('name').not().isEmpty().withMessage("กรุณาใส้ชื่ออาหารด้วยครับ"),passport.isLogin,checkadmin.isAdmin],typeController.insert);
 router.post('/addtype',[body('pet').not().isEmpty().withMessage("กรุณากรอกประเภทสัตว์ด้วยครับ"),passport.isLogin,checkadmin.isAdmin],typeController.inserttype);
-router.delete('/:id',typeController.destoy)
-router.put('/:id',typeController.update)
+router.delete('/:id',[passport.isLogin,checkadmin.isAdmin],typeController.destoy)
+router.put('/:id',[passport.isLogin,checkadmin.isAdmin],typeController.update)
 module.exports = router;

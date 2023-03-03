@@ -3,6 +3,7 @@ var router = express.Router();
 const userController = require("../controllers/userController");
 const { body } = require("express-validator");
 const passport = require('../middleware/passportJWT');
+const checkadmin = require('../middleware/checkAdmin')
 /* GET users listing. */
 router.get("/", userController.index);
 router.get("/bio", userController.bio);
@@ -46,7 +47,7 @@ router.post(
   );
   router.get("/me",[passport.isLogin],userController.profile)
 
-  router.delete('/:id',userController.destroy)
-  router.put('/:id',userController.update)
+  router.delete('/:id',[passport.isLogin,checkadmin.isAdmin],userController.destroy)
+  router.put('/:id',[passport.isLogin,checkadmin.isAdmin],userController.update)
 
 module.exports = router;
