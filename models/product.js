@@ -4,7 +4,7 @@ const Schema =mongoose.Schema
 const schema = new Schema({
     name : {type : String, require:true, trim: true},
     price:{type : Number},
-    type: {type: Schema.Types.ObjectId, ref:'Type'}
+    type: {type: Schema.Types.String, ref:'Type'}
         
 },{ toJSON :{virtuals: true},
     timestamps: true,
